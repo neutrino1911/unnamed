@@ -1,6 +1,7 @@
 package ru.security59.unnamed.util;
 
 public class Transliterator {
+
     private static String cyr2lat(char ch) {
         switch (ch) {
             case 'а':

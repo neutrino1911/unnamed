@@ -1,28 +1,21 @@
 package ru.security59.unnamed.util;
 
-import com.opencsv.CSVWriter;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
-import ru.security59.unnamed.entities.Product;
-import ru.security59.unnamed.entities.Product_;
-import ru.security59.unnamed.entities.Vendor;
-import ru.security59.unnamed.entities.Vendor_;
 
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
-import java.io.*;
 import java.util.LinkedList;
-import java.util.List;
 //import static ru.security59.unnamed.HTMLParser.*;
 
 public class Exporter {
 
 
     private static String[] tiuHeader;
+
     private LinkedList<String[]> list;
+
     private HSSFWorkbook workbook;
+
     private static String[] sites;
 
     static {
@@ -44,7 +37,7 @@ public class Exporter {
                 "Гарантийный_срок",
                 "Страна_производитель"
         };
-        sites = new String[] {"tiu", "uv"};
+        sites = new String[]{"tiu", "uv"};
     }
 
     public Exporter() {

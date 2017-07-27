@@ -65,7 +65,7 @@ public class Target {
     }
 
     public int getNextId() {
-        if (lastId == 0)  lastId = vendor.getId() * 1000000 + category.getId() * 1000;
+        if (lastId == 0) lastId = vendor.getId() * 1000000 + category.getId() * 1000;
         return ++lastId;
     }
 }
