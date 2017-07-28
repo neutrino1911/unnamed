@@ -1,6 +1,6 @@
 package ru.security59.unnamed.service;
 
-import java.util.Set;
+import java.util.List;
 
 public interface AbstractEntityService<T> {
 
@@ -12,6 +12,8 @@ public interface AbstractEntityService<T> {
 
     void delete(Integer id);
 
-    Set<T> getAll();
+    List<T> getAll();
+
+    List<T> getList(Integer page, Integer count);
 
 }

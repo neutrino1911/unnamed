@@ -1,16 +1,16 @@
-package ru.security59.unnamed.controller;
+package ru.security59.unnamed.controller.entity;
 
 import org.springframework.web.bind.annotation.*;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 import javax.ws.rs.core.Response;
-import java.util.Set;
+import java.util.List;
 
-public class AbstractController<T> {
+public abstract class AbstractEntityController<T> {
 
     private final AbstractEntityService<T> entityService;
 
-    AbstractController(AbstractEntityService<T> entityService) {
+    AbstractEntityController(AbstractEntityService<T> entityService) {
         this.entityService = entityService;
     }
 
@@ -20,8 +20,15 @@ public class AbstractController<T> {
     }
 
     @RequestMapping(path = "/all", method = RequestMethod.GET)
-    public Set<T> getAll() {
+    public List<T> getAll() {
         return entityService.getAll();
+    }
+
+    @RequestMapping(path = "/list/{page}/{count}", method = RequestMethod.GET)
+    public List<T> getList(
+            @PathVariable Integer page,
+            @PathVariable Integer count) {
+        return entityService.getList(page, count);
     }
 
     @RequestMapping(path = "/new", method = RequestMethod.POST)
@@ -36,9 +43,8 @@ public class AbstractController<T> {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public Response delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Integer id) {
         entityService.delete(id);
-        return Response.ok().build();
     }
 
     @ExceptionHandler(Exception.class)

@@ -3,9 +3,9 @@ package ru.security59.unnamed.service.impl;
 import ru.security59.unnamed.dao.AbstractEntityDAO;
 import ru.security59.unnamed.service.AbstractEntityService;
 
-import java.util.Set;
+import java.util.List;
 
-public class AbstractEntityServiceImpl<T> implements AbstractEntityService<T> {
+public abstract class AbstractEntityServiceImpl<T> implements AbstractEntityService<T> {
 
     private final AbstractEntityDAO<T> entityDAO;
 
@@ -34,7 +34,12 @@ public class AbstractEntityServiceImpl<T> implements AbstractEntityService<T> {
     }
 
     @Override
-    public Set<T> getAll() {
+    public List<T> getAll() {
         return entityDAO.getAll();
+    }
+
+    @Override
+    public List<T> getList(Integer page, Integer count) {
+        return entityDAO.getList(page, count);
     }
 }

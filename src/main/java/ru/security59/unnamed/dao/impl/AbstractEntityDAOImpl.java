@@ -7,11 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Transactional
-public class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
+public abstract class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
 
     private final Class<T> typeParameterClass;
 
@@ -49,11 +48,19 @@ public class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
     }
 
     @Override
-    public Set<T> getAll() {
+    public List<T> getAll() {
         CriteriaQuery<T> criteria = criteriaBuilder.createQuery(typeParameterClass);
         Root<T> root = criteria.from(typeParameterClass);
         criteria.select(root);
-        return new HashSet<>(entityManager.createQuery(criteria).getResultList());
+        return entityManager.createQuery(criteria).getResultList();
     }
 
+    @Override
+    public List<T> getList(Integer page, Integer count) {
+        Integer start = (page - 1) * count;
+        CriteriaQuery<T> criteria = criteriaBuilder.createQuery(typeParameterClass);
+        Root<T> root = criteria.from(typeParameterClass);
+        criteria.select(root);
+        return entityManager.createQuery(criteria).setFirstResult(start).setMaxResults(count).getResultList();
+    }
 }
