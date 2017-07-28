@@ -2,6 +2,7 @@ package ru.security59.unnamed.config;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -9,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
@@ -24,11 +26,24 @@ public class AppConfig {
     private Environment environment;
 
     @Bean
+    public DispatcherServlet dispatcherServlet() {
+        return new DispatcherServlet();
+    }
+
+    @Bean
+    public ServletRegistrationBean dispatcherRegistration() {
+        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet());
+        registration.setLoadOnStartup(0);
+        registration.addUrlMappings("/api/*");
+        return registration;
+    }
+
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setPersistenceProvider(new HibernatePersistenceProvider());
         factoryBean.setDataSource(dataSource());
-        factoryBean.setPackagesToScan("ru.security59.unnamed.entity");
+        factoryBean.setPackagesToScan("ru.security59.unnamed");
         factoryBean.setJpaProperties(hibernateProperties());
         return factoryBean;
     }
