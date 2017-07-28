@@ -2,14 +2,14 @@ package ru.security59.unnamed.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.security59.unnamed.entities.Vendor;
+import ru.security59.unnamed.entities.Image;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 @RestController
-@RequestMapping(path = "/vendor")
-public class VendorController extends AbstractController<Vendor> {
+@RequestMapping(path = "/image")
+public class ImageController extends AbstractController<Image> {
 
-    public VendorController(AbstractEntityService<Vendor> entityService) {
+    public ImageController(AbstractEntityService<Image> entityService) {
         super(entityService);
     }
 
