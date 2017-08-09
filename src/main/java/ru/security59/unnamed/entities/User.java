@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id"})
-@Table(name = "Users")
+@EqualsAndHashCode(exclude = {"id", "messages"})
+@Table(name = "User")
 public class User {
 
     @Id
@@ -24,5 +25,8 @@ public class User {
 
     @Column(name = "hash")
     private String hash;
+
+    @OneToMany(mappedBy = "from")
+    private Set<Message> messages;
 
 }

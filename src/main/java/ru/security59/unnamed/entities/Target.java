@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @EqualsAndHashCode(exclude = {"id"})
-@Table(name = "Targets")
+@Table(name = "Target")
 @ToString(exclude = {"category", "vendor"})
 public class Target {
 

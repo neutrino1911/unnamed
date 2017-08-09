@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @EqualsAndHashCode(exclude = {"id"})
-@Table(name = "Categories")
+@Table(name = "Categorie")
 public class Category {
 
     @Id

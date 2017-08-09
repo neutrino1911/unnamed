@@ -12,7 +12,7 @@ import java.util.TreeSet;
 @Data
 @Entity
 @EqualsAndHashCode(exclude = {"id", "images"})
-@Table(name = "Products")
+@Table(name = "Product")
 @ToString(exclude = {"category", "images", "vendor"})
 public class Product {
 

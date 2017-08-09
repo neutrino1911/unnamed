@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="unnamed">
+<head>
+    <meta charset="UTF-8">
+    <title>unnamed</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/unnamed.js"></script>
+    <script src="js/vendor-service.js"></script>
+    <script src="js/unnamed-common.js"></script>
+</head>
+<body ng-controller="unnamedCtrl">
+    <div ng-repeat="vendor in vendors track by $index" ng-show="showVendors">
+        index: {{$index}}
+        {{vendor.id}}
+        {{vendor.name}}
+        {{vendor.country}}
+        {{vendor.warranty}}
+    </div>
+</body>
+</html>

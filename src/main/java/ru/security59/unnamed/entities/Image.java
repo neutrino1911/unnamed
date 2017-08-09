@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @EqualsAndHashCode(exclude = {"id", "product"})
-@Table(name = "Images")
+@Table(name = "Image")
 @ToString(exclude = {"product"})
 public class Image implements Comparable<Image> {
 
