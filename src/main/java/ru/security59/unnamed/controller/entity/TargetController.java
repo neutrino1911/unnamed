@@ -6,7 +6,7 @@ import ru.security59.unnamed.entities.Target;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 @RestController
-@RequestMapping(path = "/target")
+@RequestMapping(path = "/targets")
 public class TargetController extends AbstractEntityController<Target> {
 
     public TargetController(AbstractEntityService<Target> entityService) {

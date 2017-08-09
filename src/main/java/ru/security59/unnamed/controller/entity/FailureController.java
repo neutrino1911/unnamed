@@ -6,7 +6,7 @@ import ru.security59.unnamed.entities.Failure;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 @RestController
-@RequestMapping(path = "/failure")
+@RequestMapping(path = "/failures")
 public class FailureController extends AbstractEntityController<Failure> {
 
     public FailureController(AbstractEntityService<Failure> entityService) {

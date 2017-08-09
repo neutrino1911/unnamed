@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Data
 @Entity
 @EqualsAndHashCode(exclude = {"id"})
-@Table(name = "Vendors")
-public class Vendor {
+@Table(name = "Users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,10 @@ public class Vendor {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "country")
-    private String country;
+    @Column(name = "login")
+    private String login;
 
-    @Column(name = "warranty")
-    private Integer warranty;
+    @Column(name = "hash")
+    private String hash;
 
 }

@@ -6,7 +6,7 @@ import ru.security59.unnamed.entities.Vendor;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 @RestController
-@RequestMapping(path = "/vendor")
+@RequestMapping(path = "/vendors")
 public class VendorController extends AbstractEntityController<Vendor> {
 
     public VendorController(AbstractEntityService<Vendor> entityService) {

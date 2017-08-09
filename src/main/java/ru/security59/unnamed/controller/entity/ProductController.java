@@ -6,7 +6,7 @@ import ru.security59.unnamed.entities.Product;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 @RestController
-@RequestMapping(path = "/product")
+@RequestMapping(path = "/products")
 public class ProductController extends AbstractEntityController<Product> {
 
     public ProductController(AbstractEntityService<Product> entityService) {

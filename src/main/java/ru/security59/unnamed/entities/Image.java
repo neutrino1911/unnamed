@@ -1,24 +1,22 @@
 package ru.security59.unnamed.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity
+@EqualsAndHashCode(exclude = {"id", "product"})
 @Table(name = "Images")
+@ToString(exclude = {"product"})
 public class Image implements Comparable<Image> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -34,24 +32,6 @@ public class Image implements Comparable<Image> {
         this.url = url;
         this.product = product;
         this.name = String.format("%s-%d.jpg", product.getSeoURL(), product.getImages().size());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Image image = (Image) o;
-
-        if (!name.equals(image.name)) return false;
-        return url.equals(image.url);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + url.hashCode();
-        return result;
     }
 
     @Override

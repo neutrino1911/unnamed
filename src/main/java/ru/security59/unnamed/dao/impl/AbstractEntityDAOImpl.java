@@ -12,21 +12,21 @@ import java.util.List;
 @Transactional
 public abstract class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
 
-    private final Class<T> typeParameterClass;
+    private final Class<T> type;
 
     final EntityManager entityManager;
 
     final CriteriaBuilder criteriaBuilder;
 
-    AbstractEntityDAOImpl(Class<T> typeParameterClass, EntityManager entityManager) {
-        this.typeParameterClass = typeParameterClass;
+    AbstractEntityDAOImpl(Class<T> type, EntityManager entityManager) {
+        this.type = type;
         this.entityManager = entityManager;
         this.criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
     @Override
     public T get(Integer id) {
-        return entityManager.find(typeParameterClass, id);
+        return entityManager.find(type, id);
     }
 
     @Override
@@ -41,7 +41,7 @@ public abstract class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
 
     @Override
     public void delete(Integer id) {
-        T t = entityManager.find(typeParameterClass, id);
+        T t = entityManager.find(type, id);
         if (t != null) {
             entityManager.remove(t);
         }
@@ -49,8 +49,8 @@ public abstract class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
 
     @Override
     public List<T> getAll() {
-        CriteriaQuery<T> criteria = criteriaBuilder.createQuery(typeParameterClass);
-        Root<T> root = criteria.from(typeParameterClass);
+        CriteriaQuery<T> criteria = criteriaBuilder.createQuery(type);
+        Root<T> root = criteria.from(type);
         criteria.select(root);
         return entityManager.createQuery(criteria).getResultList();
     }
@@ -58,8 +58,8 @@ public abstract class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
     @Override
     public List<T> getList(Integer page, Integer count) {
         Integer start = (page - 1) * count;
-        CriteriaQuery<T> criteria = criteriaBuilder.createQuery(typeParameterClass);
-        Root<T> root = criteria.from(typeParameterClass);
+        CriteriaQuery<T> criteria = criteriaBuilder.createQuery(type);
+        Root<T> root = criteria.from(type);
         criteria.select(root);
         return entityManager.createQuery(criteria).setFirstResult(start).setMaxResults(count).getResultList();
     }
