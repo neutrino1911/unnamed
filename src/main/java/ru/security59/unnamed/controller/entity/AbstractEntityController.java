@@ -5,6 +5,7 @@ import ru.security59.unnamed.service.AbstractEntityService;
 
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractEntityController<T> {
 
@@ -19,25 +20,23 @@ public abstract class AbstractEntityController<T> {
         return entityService.get(id);
     }
 
-    @RequestMapping(path = "/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<T> getAll() {
         return entityService.getAll();
     }
 
-    @RequestMapping(path = "/list/{page}/{count}", method = RequestMethod.GET)
-    public List<T> getList(
-            @PathVariable Integer page,
-            @PathVariable Integer count) {
-        return entityService.getList(page, count);
+    @RequestMapping(path = "/list", method = RequestMethod.POST)
+    public List<T> getList(@RequestBody Map<Object, Object> params) {
+        return entityService.getList(params);
     }
 
-    @RequestMapping(path = "/new", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public T add(@RequestBody T t) {
         entityService.add(t);
         return t;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PUT)
     public T update(@RequestBody T t) {
         return entityService.update(t);
     }

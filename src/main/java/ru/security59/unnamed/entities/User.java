@@ -1,5 +1,6 @@
 package ru.security59.unnamed.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,14 +9,15 @@ import java.util.Set;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id", "messages"})
+@EqualsAndHashCode(exclude = {"id", "sentMessages", "receivedMessages"})
+@JsonIgnoreProperties({"sentMessages", "receivedMessages"})
 @Table(name = "User")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -26,7 +28,10 @@ public class User {
     @Column(name = "hash")
     private String hash;
 
-    @OneToMany(mappedBy = "from")
-    private Set<Message> messages;
+    @ManyToMany(mappedBy = "from")
+    private Set<Message> sentMessages;
+
+    @ManyToMany(mappedBy = "to")
+    private Set<Message> receivedMessages;
 
 }

@@ -16,7 +16,7 @@ public class Target {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cat_id")
@@ -26,7 +26,7 @@ public class Target {
     private String currency;
 
     @Column(name = "last_id")
-    private Integer lastId;
+    private long lastId;
 
     @Column(name = "unit")
     private String unit;
@@ -38,7 +38,7 @@ public class Target {
     @JoinColumn(name = "vend_id")
     private Vendor vendor;
 
-    public int getNextId() {
+    public long getNextId() {
         if (lastId == 0) lastId = vendor.getId() * 1000000 + category.getId() * 1000;
         return ++lastId;
     }

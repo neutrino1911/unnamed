@@ -1,6 +1,7 @@
 package ru.security59.unnamed.dao;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AbstractEntityDAO<T> {
 
@@ -14,6 +15,5 @@ public interface AbstractEntityDAO<T> {
 
     List<T> getAll();
 
-    List<T> getList(Integer page, Integer count);
-
+    List<T> getList(Map<Object, Object> params);
 }

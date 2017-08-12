@@ -1,6 +1,7 @@
 package ru.security59.unnamed.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AbstractEntityService<T> {
 
@@ -14,6 +15,6 @@ public interface AbstractEntityService<T> {
 
     List<T> getAll();
 
-    List<T> getList(Integer page, Integer count);
+    List<T> getList(Map<Object, Object> params);
 
 }

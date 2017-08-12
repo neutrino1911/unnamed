@@ -1,5 +1,6 @@
 package ru.security59.unnamed.dao.impl;
 
+import org.hibernate.query.criteria.internal.OrderImpl;
 import org.springframework.transaction.annotation.Transactional;
 import ru.security59.unnamed.dao.AbstractEntityDAO;
 
@@ -8,11 +9,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 public abstract class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
 
-    private final Class<T> type;
+    final Class<T> type;
 
     final EntityManager entityManager;
 
@@ -56,11 +58,16 @@ public abstract class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
     }
 
     @Override
-    public List<T> getList(Integer page, Integer count) {
+    public List<T> getList(Map<Object, Object> params) {
+        Integer page = (Integer) params.get("page");
+        Integer count = (Integer) params.get("count");
+        String orderBy = (String) params.getOrDefault("orderBy", "id");
+        Boolean asc = (Boolean) params.getOrDefault("asc", true);
         Integer start = (page - 1) * count;
         CriteriaQuery<T> criteria = criteriaBuilder.createQuery(type);
         Root<T> root = criteria.from(type);
         criteria.select(root);
+        criteria.orderBy(new OrderImpl(root.get(orderBy), asc));
         return entityManager.createQuery(criteria).setFirstResult(start).setMaxResults(count).getResultList();
     }
 }

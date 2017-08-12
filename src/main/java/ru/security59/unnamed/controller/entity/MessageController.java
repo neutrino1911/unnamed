@@ -1,36 +1,34 @@
 package ru.security59.unnamed.controller.entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import ru.security59.unnamed.entities.Message;
+import ru.security59.unnamed.service.AbstractEntityService;
 import ru.security59.unnamed.service.MessageService;
 import ru.security59.unnamed.service.UserService;
 
-import java.util.Date;
+import java.util.List;
 
-@Controller
-public class MessageController {
+@RestController
+@RequestMapping(path = "/messages")
+public class MessageController extends AbstractEntityController<Message> {
 
     private final MessageService messageService;
 
     private final UserService userService;
 
 
-    @Autowired
-    public MessageController(MessageService messageService, UserService userService) {
+    public MessageController(AbstractEntityService<Message> entityService, MessageService messageService, UserService userService) {
+        super(entityService);
         this.messageService = messageService;
         this.userService = userService;
     }
 
-    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public Message greeting(String text) throws Exception {
-        Message message = new Message();
-        message.setText(text);
-        message.setDate(new Date());
-        return message;
+    @RequestMapping(path = "/getByUserId/{userId}", method = RequestMethod.GET)
+    public List<Message> getMessages(@PathVariable Long userId) {
+        List<Message> messages = messageService.getByUserId(userId);
+        return messages;
     }
-
 }

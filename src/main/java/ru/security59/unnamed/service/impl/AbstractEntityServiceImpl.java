@@ -4,6 +4,7 @@ import ru.security59.unnamed.dao.AbstractEntityDAO;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractEntityServiceImpl<T> implements AbstractEntityService<T> {
 
@@ -39,7 +40,8 @@ public abstract class AbstractEntityServiceImpl<T> implements AbstractEntityServ
     }
 
     @Override
-    public List<T> getList(Integer page, Integer count) {
-        return entityDAO.getList(page, count);
+    public List<T> getList(Map<Object, Object> params) {
+        return entityDAO.getList(params);
     }
+
 }
