@@ -6,7 +6,7 @@ import ru.security59.unnamed.entities.User;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 @RestController
-@RequestMapping(path = "/users")
+@RequestMapping(path = "/api/users")
 public class UserController extends AbstractEntityController<User> {
 
     public UserController(AbstractEntityService<User> entityService) {

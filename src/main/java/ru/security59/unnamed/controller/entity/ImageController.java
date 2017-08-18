@@ -6,7 +6,7 @@ import ru.security59.unnamed.entities.Image;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 @RestController
-@RequestMapping(path = "/images")
+@RequestMapping(path = "/api/images")
 public class ImageController extends AbstractEntityController<Image> {
 
     public ImageController(AbstractEntityService<Image> entityService) {

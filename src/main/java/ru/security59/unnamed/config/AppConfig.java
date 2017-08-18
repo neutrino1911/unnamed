@@ -2,7 +2,6 @@ package ru.security59.unnamed.config;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -10,32 +9,20 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableWebMvc
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:hibernate.properties", "classpath:config.properties"})
 public class AppConfig {
 
+    private final Environment environment;
+
     @Autowired
-    private Environment environment;
-
-    @Bean
-    public DispatcherServlet dispatcherServlet() {
-        return new DispatcherServlet();
-    }
-
-    @Bean
-    public ServletRegistrationBean dispatcherRegistration() {
-        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet());
-        registration.setLoadOnStartup(0);
-        registration.addUrlMappings("/api/*");
-        return registration;
+    public AppConfig(Environment environment) {
+        this.environment = environment;
     }
 
     @Bean
@@ -72,4 +59,5 @@ public class AppConfig {
         }
         return properties;
     }
+
 }

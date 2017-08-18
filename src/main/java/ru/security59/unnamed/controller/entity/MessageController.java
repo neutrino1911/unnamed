@@ -12,7 +12,7 @@ import ru.security59.unnamed.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/messages")
+@RequestMapping(path = "/api/messages")
 public class MessageController extends AbstractEntityController<Message> {
 
     private final MessageService messageService;

@@ -4,4 +4,6 @@ import ru.security59.unnamed.entities.User;
 
 public interface UserDAO extends AbstractEntityDAO<User> {
 
+    User getByLogin(String login);
+
 }

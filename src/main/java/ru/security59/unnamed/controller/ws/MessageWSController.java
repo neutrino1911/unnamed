@@ -1,9 +1,10 @@
-package ru.security59.unnamed.controller.entity;
+package ru.security59.unnamed.controller.ws;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.security59.unnamed.entities.Message;
 import ru.security59.unnamed.service.MessageService;
 import ru.security59.unnamed.service.UserService;
@@ -11,6 +12,7 @@ import ru.security59.unnamed.service.UserService;
 import java.util.Date;
 
 @Controller
+@RequestMapping("/ws")
 public class MessageWSController {
 
     private final MessageService messageService;

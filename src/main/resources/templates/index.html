@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="unnamed">
+<html lang="en" ng-app="unnamed" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>unnamed</title>
-    <script src="js/angular.min.js"></script>
-    <script src="js/unnamed.js"></script>
-    <script src="js/vendor-service.js"></script>
-    <script src="js/unnamed-common.js"></script>
+    <title th:text="#{site.title}"></title>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/unnamed.js"></script>
+    <script src="/js/vendor-service.js"></script>
+    <script src="/js/unnamed-common.js"></script>
 </head>
 <body ng-controller="unnamedCtrl">
+<!--/*@thymesVar id="test" type="String"*/-->
+<p th:text="${test}"></p>
 <input type="button" value="normal" ng-click="loadVendor()">
 <input type="button" value="force" ng-click="loadVendor(true)">
     <div ng-repeat="vendor in vendors track by $index" ng-show="showVendors">

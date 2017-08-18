@@ -25,8 +25,11 @@ public class User {
     @Column(name = "login")
     private String login;
 
-    @Column(name = "hash")
-    private String hash;
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "salt")
+    private String salt;
 
     @ManyToMany(mappedBy = "from")
     private Set<Message> sentMessages;

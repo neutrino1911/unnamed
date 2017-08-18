@@ -6,7 +6,7 @@ import ru.security59.unnamed.entities.Category;
 import ru.security59.unnamed.service.AbstractEntityService;
 
 @RestController
-@RequestMapping(path = "/categorys")
+@RequestMapping(path = "/api/categories")
 public class CategoryController extends AbstractEntityController<Category> {
 
     public CategoryController(AbstractEntityService<Category> entityService) {
