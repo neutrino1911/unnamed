@@ -9,7 +9,7 @@
 
         let $this = this;
 
-        $this.url = '/api/vendor/';
+        $this.url = '/api/vendors/';
 
         $this.get = function(id) {
             return $http.get($this.url + id);

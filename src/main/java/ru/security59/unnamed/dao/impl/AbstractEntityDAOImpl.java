@@ -27,7 +27,7 @@ public abstract class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
     }
 
     @Override
-    public T get(Integer id) {
+    public T get(Long id) {
         return entityManager.find(type, id);
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractEntityDAOImpl<T> implements AbstractEntityDAO<T> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         T t = entityManager.find(type, id);
         if (t != null) {
             entityManager.remove(t);

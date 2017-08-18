@@ -16,7 +16,7 @@ public abstract class AbstractEntityController<T> {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public T get(@PathVariable Integer id) {
+    public T get(@PathVariable Long id) {
         return entityService.get(id);
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractEntityController<T> {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Long id) {
         entityService.delete(id);
     }
 

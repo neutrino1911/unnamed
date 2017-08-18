@@ -11,41 +11,26 @@
 
         let vendorPromise;
 
-        $this.getVendor = function() {
-            if (vendorPromise == null) {
+        $this.getVendor = function(force) {
+            if (vendorPromise == null || force) {
                 vendorPromise = vendorService.get(1);
             }
             return vendorPromise;
         };
 
-        $scope.vendors = [];
-
-        $this.getVendor().then((response) => {
-            $scope.vendors[0] = response.data;
-        });
-
-        $this.getVendor().then((response) => {
-            $scope.vendors[1] = response.data;
-        });
-
-        $this.deferred = $q.defer();
-
-        setTimeout(function() {
-            $this.deferred.resolve();
-        }, 3000);
-
-        $scope.showVendors = false;
-
-        $q.all([$this.getVendor(), $this.deferred.promise]).then(function() {
-            $scope.showVendors = true;
-            vendorService.new({
-                name: 'Texet',
-                country: 'China',
-                warranty: 12
-            }).then(function(response) {
+        $scope.loadVendor = function(force) {
+            $this.getVendor(force).then((response) => {
                 $scope.vendors.push(response.data);
             });
-        });
+        };
+
+        $scope.vendors = [];
+
+        // $this.getVendor().then((response) => {
+        //     $scope.vendors.push(response.data);
+        // });
+
+        $scope.showVendors = true;
 
     }
 

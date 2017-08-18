@@ -15,7 +15,7 @@ public abstract class AbstractEntityServiceImpl<T> implements AbstractEntityServ
     }
 
     @Override
-    public T get(Integer id) {
+    public T get(Long id) {
         return entityDAO.get(id);
     }
 
@@ -30,7 +30,7 @@ public abstract class AbstractEntityServiceImpl<T> implements AbstractEntityServ
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         entityDAO.delete(id);
     }
 

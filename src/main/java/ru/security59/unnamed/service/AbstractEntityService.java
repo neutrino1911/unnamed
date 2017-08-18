@@ -5,13 +5,13 @@ import java.util.Map;
 
 public interface AbstractEntityService<T> {
 
-    T get(Integer id);
+    T get(Long id);
 
     void add(T t);
 
     T update(T t);
 
-    void delete(Integer id);
+    void delete(Long id);
 
     List<T> getAll();
 
