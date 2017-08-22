@@ -5,7 +5,7 @@
         .module('unnamed.common', [])
         .controller('authController', authController);
 
-    function authController($scope, $location, UserService) {
+    function authController($scope, AuthService) {
 
         let $this = this;
         $scope.user = {};
@@ -16,7 +16,7 @@
 
         $scope.signup = function(user) {
             $scope.error.state = false;
-            UserService.signup(user)
+            AuthService.signup(user)
                 .then(function(response) {
                     location.replace('/');
                 }, function(error) {

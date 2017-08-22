@@ -19,10 +19,6 @@
             return $http.post($this.url, data);
         };
 
-        $this.signup = function(data) {
-            return $http.post($this.url + 'signup/', data);
-        };
-
     }
 
 })(angular);
