@@ -5,9 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.authentication.dao.SaltSource;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,10 +34,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/static/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/static/**", "/signup", "/api/users/signup/").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .and()
@@ -45,10 +55,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(getPasswordEncoder());
         provider.setSaltSource(getSaltSource(userService));
         provider.setUserDetailsService(getUserDetailsService(userService));
-        provider.setPasswordEncoder(new ShaPasswordEncoder(256));
         auth.authenticationProvider(provider);
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new ShaPasswordEncoder(256);
+    }
+
+    @Bean
+    public SaltSource getSaltSource(UserService userService) {
+        return user -> userService.getByLogin(user.getName()).getSalt();
     }
 
     @Bean
@@ -62,11 +82,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     user.getPassword(),
                     roles);
         };
-    }
-
-    @Bean
-    public SaltSource getSaltSource(UserService userService) {
-        return user -> userService.getByLogin(user.getName()).getSalt();
     }
 
 }

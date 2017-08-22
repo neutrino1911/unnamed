@@ -8,8 +8,11 @@ import ru.security59.unnamed.service.FailureService;
 @Service
 public class FailureServiceImpl extends AbstractEntityServiceImpl<Failure> implements FailureService {
 
-    public FailureServiceImpl(FailureDAO entityDAO) {
-        super(entityDAO);
+    private final FailureDAO failureDAO;
+
+    public FailureServiceImpl(FailureDAO failureDAO) {
+        super(failureDAO);
+        this.failureDAO = failureDAO;
     }
 
 }

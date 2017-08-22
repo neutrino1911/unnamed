@@ -8,8 +8,11 @@ import ru.security59.unnamed.service.CategoryService;
 @Service
 public class CategoryServiceImpl extends AbstractEntityServiceImpl<Category> implements CategoryService {
 
-    public CategoryServiceImpl(CategoryDAO entityDAO) {
-        super(entityDAO);
+    private final CategoryDAO categoryDAO;
+
+    public CategoryServiceImpl(CategoryDAO categoryDAO) {
+        super(categoryDAO);
+        this.categoryDAO = categoryDAO;
     }
 
 }

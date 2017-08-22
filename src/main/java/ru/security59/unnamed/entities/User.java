@@ -37,10 +37,4 @@ public class User {
     @Column(name = "roles")
     private Set<UserRole> roles;
 
-    @ManyToMany(mappedBy = "from")
-    private Set<Message> sentMessages;
-
-    @ManyToMany(mappedBy = "to")
-    private Set<Message> receivedMessages;
-
 }

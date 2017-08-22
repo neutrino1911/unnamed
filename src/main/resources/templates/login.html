@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" ng-app="unnamed" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{site.title}"></title>
+    <script src="/static/js/angular.min.js"></script>
+    <script src="/static/js/unnamed.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/user-service.js"></script>
 </head>
 <body>
 <div th:if="${param.error}">
@@ -13,8 +16,8 @@
     You have been logged out.
 </div>
 <form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><label>User Name:<input name="username"/></label></div>
+    <div><label>Password:<input type="password" name="password"/></label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
 </body>

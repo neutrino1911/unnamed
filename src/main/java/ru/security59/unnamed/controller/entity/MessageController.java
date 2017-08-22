@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.security59.unnamed.entities.Message;
-import ru.security59.unnamed.service.AbstractEntityService;
 import ru.security59.unnamed.service.MessageService;
 import ru.security59.unnamed.service.UserService;
 
@@ -20,8 +19,8 @@ public class MessageController extends AbstractEntityController<Message> {
     private final UserService userService;
 
 
-    public MessageController(AbstractEntityService<Message> entityService, MessageService messageService, UserService userService) {
-        super(entityService);
+    public MessageController(MessageService messageService, UserService userService) {
+        super(messageService);
         this.messageService = messageService;
         this.userService = userService;
     }

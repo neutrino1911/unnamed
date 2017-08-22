@@ -10,16 +10,16 @@ import java.util.List;
 @Service
 public class MessageServiceImpl extends AbstractEntityServiceImpl<Message> implements MessageService {
 
-    private final MessageDAO entityDAO;
+    private final MessageDAO messageDAO;
 
-    public MessageServiceImpl(MessageDAO entityDAO) {
-        super(entityDAO);
-        this.entityDAO = entityDAO;
+    public MessageServiceImpl(MessageDAO messageDAO) {
+        super(messageDAO);
+        this.messageDAO = messageDAO;
     }
 
     @Override
     public List<Message> getByUserId(Long id) {
-        return entityDAO.getByUserId(id);
+        return messageDAO.getByUserId(id);
     }
 
 }

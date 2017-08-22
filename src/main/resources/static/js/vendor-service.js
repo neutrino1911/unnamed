@@ -16,7 +16,7 @@
         };
 
         $this.new = function(data) {
-            return $http.post($this.url + 'new', data);
+            return $http.post($this.url, data);
         }
 
     }

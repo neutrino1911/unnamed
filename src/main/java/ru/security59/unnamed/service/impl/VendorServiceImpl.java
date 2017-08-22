@@ -8,8 +8,11 @@ import ru.security59.unnamed.service.VendorService;
 @Service
 public class VendorServiceImpl extends AbstractEntityServiceImpl<Vendor> implements VendorService {
 
-    public VendorServiceImpl(VendorDAO entityDAO) {
-        super(entityDAO);
+    private final VendorDAO vendorDAO;
+
+    public VendorServiceImpl(VendorDAO vendorDAO) {
+        super(vendorDAO);
+        this.vendorDAO = vendorDAO;
     }
 
 }

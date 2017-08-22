@@ -8,8 +8,11 @@ import ru.security59.unnamed.service.TargetService;
 @Service
 public class TargetServiceImpl extends AbstractEntityServiceImpl<Target> implements TargetService {
 
-    public TargetServiceImpl(TargetDAO entityDAO) {
-        super(entityDAO);
+    private final TargetDAO targetDAO;
+
+    public TargetServiceImpl(TargetDAO targetDAO) {
+        super(targetDAO);
+        this.targetDAO = targetDAO;
     }
 
 }

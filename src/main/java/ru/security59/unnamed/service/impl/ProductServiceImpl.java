@@ -8,8 +8,11 @@ import ru.security59.unnamed.service.ProductService;
 @Service
 public class ProductServiceImpl extends AbstractEntityServiceImpl<Product> implements ProductService {
 
-    public ProductServiceImpl(ProductDAO entityDAO) {
-        super(entityDAO);
+    private final ProductDAO productDAO;
+
+    public ProductServiceImpl(ProductDAO productDAO) {
+        super(productDAO);
+        this.productDAO = productDAO;
     }
 
 }

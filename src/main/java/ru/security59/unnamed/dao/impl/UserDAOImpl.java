@@ -26,4 +26,5 @@ public class UserDAOImpl extends AbstractEntityDAOImpl<User> implements UserDAO 
         criteria.where(criteriaBuilder.equal(root.get(User_.login), login));
         return entityManager.createQuery(criteria).getSingleResult();
     }
+
 }

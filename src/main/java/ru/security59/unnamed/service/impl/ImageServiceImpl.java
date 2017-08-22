@@ -8,8 +8,11 @@ import ru.security59.unnamed.service.ImageService;
 @Service
 public class ImageServiceImpl extends AbstractEntityServiceImpl<Image> implements ImageService {
 
-    public ImageServiceImpl(ImageDAO entityDAO) {
-        super(entityDAO);
+    private final ImageDAO imageDAO;
+
+    public ImageServiceImpl(ImageDAO imageDAO) {
+        super(imageDAO);
+        this.imageDAO = imageDAO;
     }
 
 }
