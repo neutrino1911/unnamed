@@ -1,6 +1,6 @@
 package ru.security59.unnamed.entities.enums;
 
-public enum UserRoleEnum {
+public enum UserRole {
 
     ADMIN,
     OPERATOR,

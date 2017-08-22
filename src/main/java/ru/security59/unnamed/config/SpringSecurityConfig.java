@@ -1,6 +1,7 @@
 package ru.security59.unnamed.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.authentication.dao.SaltSource;
@@ -9,19 +10,25 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import ru.security59.unnamed.entities.User;
+import ru.security59.unnamed.entities.enums.UserRole;
+import ru.security59.unnamed.service.UserService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
-    private final SaltSource saltSource;
+    private final UserService userService;
 
     @Autowired
-    public SpringSecurityConfig(UserDetailsService userDetailsService, SaltSource saltSource) {
-        this.userDetailsService = userDetailsService;
-        this.saltSource = saltSource;
+    public SpringSecurityConfig(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -38,10 +45,28 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setSaltSource(saltSource);
-        provider.setUserDetailsService(userDetailsService);
+        provider.setSaltSource(getSaltSource(userService));
+        provider.setUserDetailsService(getUserDetailsService(userService));
         provider.setPasswordEncoder(new ShaPasswordEncoder(256));
         auth.authenticationProvider(provider);
+    }
+
+    @Bean
+    public UserDetailsService getUserDetailsService(UserService userService) {
+        return login -> {
+            User user = userService.getByLogin(login);
+            Set<GrantedAuthority> roles = new HashSet<>();
+            roles.add(new SimpleGrantedAuthority(UserRole.USER.name()));
+            return new org.springframework.security.core.userdetails.User(
+                    user.getLogin(),
+                    user.getPassword(),
+                    roles);
+        };
+    }
+
+    @Bean
+    public SaltSource getSaltSource(UserService userService) {
+        return user -> userService.getByLogin(user.getName()).getSalt();
     }
 
 }

@@ -3,6 +3,7 @@ package ru.security59.unnamed.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ru.security59.unnamed.entities.enums.UserRole;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -30,6 +31,11 @@ public class User {
 
     @Column(name = "salt")
     private String salt;
+
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    @Column(name = "roles")
+    private Set<UserRole> roles;
 
     @ManyToMany(mappedBy = "from")
     private Set<Message> sentMessages;

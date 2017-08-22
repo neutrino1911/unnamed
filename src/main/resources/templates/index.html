@@ -13,6 +13,7 @@
 <p th:text="${test}"></p>
 <input type="button" value="normal" ng-click="loadVendor()">
 <input type="button" value="force" ng-click="loadVendor(true)">
+<a href="/logout"><input type="button" value="logout"></a>
     <div ng-repeat="vendor in vendors track by $index" ng-show="showVendors">
         index: {{$index}}
         {{vendor.id}}
